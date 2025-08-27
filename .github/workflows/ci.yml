@@ -1,0 +1,28 @@
+name: Basic npm Test
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install the hello-world-js package
+        run: npm install hello-world-js
+
+      - name: Run basic test script
+        run: |
+          node -e "var helloLib = require('hello-world-js'); console.log(helloLib.hello());"
